@@ -22,15 +22,19 @@ export default function ReaderPanel() {
   const sentences = text.split(/(?<=[.!?])\s+/);
   
   const handleWordPress = (word: string, event: any) => {
+    console.log("Word pressed:", word);
     // Get the position of the pressed word for the popover
     const { pageX, pageY } = event.nativeEvent;
+    console.log("Word position:", { x: pageX, y: pageY });
     setSelectedWordPosition({ x: pageX, y: pageY });
     handleWordLookup(word);
   };
   
   const handleSentencePress = (sentence: string, event: any) => {
+    console.log("Sentence pressed:", sentence);
     // Get the position of the pressed sentence for the popover
     const { pageX, pageY } = event.nativeEvent;
+    console.log("Sentence position:", { x: pageX, y: pageY });
     setSelectedSentencePosition({ x: pageX, y: pageY });
     handleSentenceParaphrase(sentence);
   };

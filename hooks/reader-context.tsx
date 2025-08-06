@@ -6,15 +6,14 @@ import * as mockData from "@/data";
 
 export type WordInfo = {
   word: string;
-  definition_persian: string;
-  translation_english: string;
+  definition: string;
+  translation: string;
   pronunciation: string;
-  part_of_speech: string;
-  example_sentence_persian: string;
-  example_translation_english: string;
+  partOfSpeech: string;
+  example: string;
+  exampleTranslation: string;
   synonyms: string[];
   antonyms: string[];
-  cultural_note: string;
 };
 
 export type SentenceInfo = {
@@ -131,38 +130,36 @@ export const [ReaderProvider, useReaderContext] = createContextHook(() => {
   
   // Tool handlers
   const handleWordLookup = (word: string) => {
+    console.log("handleWordLookup invoked for word:", word);
     setIsLoading(true);
     setSelectedWord(word);
     setActiveTool("wordLookup");
-    
-    // Simulate API call with mock data
-    setTimeout(() => {
-      setWordInfo(mockData.wordLookupExample);
-      setIsLoading(false);
-    }, 500);
-    
-    // In a real implementation, this would be an API call:
-    /*
-    fetch('/api/lookup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        word, 
-        context: text, 
-        isHeritageMode 
+
+    const apiBase = process.env.EXPO_PUBLIC_API_URL || "http://localhost:3000";
+    const payload = { word, context: text, heritage_mode: isHeritageMode };
+
+    console.log("Sending lookup request to", `${apiBase}/api/lookup`, "with payload:", payload);
+
+    fetch(`${apiBase}/api/lookup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then((res) => {
+        console.log("Received response from backend with status:", res.status);
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
       })
-    })
-    .then(res => res.json())
-    .then(data => {
-      setWordInfo(data);
-      setIsLoading(false);
-    })
-    .catch(err => {
-      console.error(err);
-      setIsLoading(false);
-      Alert.alert('Error', 'Failed to lookup word');
-    });
-    */
+      .then((data: WordInfo) => {
+        console.log("Word lookup data received:", data);
+        setWordInfo(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Word lookup failed:", err);
+        setIsLoading(false);
+        Alert.alert("Error", "Failed to lookup word");
+      });
   };
   
   const handleSentenceParaphrase = (sentence: string) => {

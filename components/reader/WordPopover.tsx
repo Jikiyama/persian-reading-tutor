@@ -9,9 +9,10 @@ type WordPopoverProps = {
 };
 
 export default function WordPopover({ position }: WordPopoverProps) {
-  const { wordInfo, setActiveTool, isHeritageMode, showEnglishTranslations } = useReaderContext();
+  const { wordInfo, setActiveTool, showEnglishTranslations } = useReaderContext();
   const { getDirectionStyle } = useI18n();
-  
+
+  console.log("WordPopover: wordInfo", wordInfo);
   if (!wordInfo) return null;
   
   const handleClose = () => {
@@ -40,11 +41,11 @@ export default function WordPopover({ position }: WordPopoverProps) {
       <ScrollView style={styles.content}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Definition</Text>
-          <Text style={[styles.persianText, getDirectionStyle(wordInfo.definition_persian)]}>
-            {wordInfo.definition_persian}
+          <Text style={[styles.persianText, getDirectionStyle(wordInfo.definition)]}>
+            {wordInfo.definition}
           </Text>
           {showEnglishTranslations && (
-            <Text style={styles.englishText}>{wordInfo.translation_english}</Text>
+            <Text style={styles.englishText}>{wordInfo.translation}</Text>
           )}
         </View>
         
@@ -55,16 +56,16 @@ export default function WordPopover({ position }: WordPopoverProps) {
         
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Part of Speech</Text>
-          <Text style={styles.partOfSpeechText}>{wordInfo.part_of_speech}</Text>
+          <Text style={styles.partOfSpeechText}>{wordInfo.partOfSpeech}</Text>
         </View>
         
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Example</Text>
-          <Text style={[styles.persianText, getDirectionStyle(wordInfo.example_sentence_persian)]}>
-            {wordInfo.example_sentence_persian}
+          <Text style={[styles.persianText, getDirectionStyle(wordInfo.example)]}>
+            {wordInfo.example}
           </Text>
           {showEnglishTranslations && (
-            <Text style={styles.englishText}>{wordInfo.example_translation_english}</Text>
+            <Text style={styles.englishText}>{wordInfo.exampleTranslation}</Text>
           )}
         </View>
         
@@ -93,15 +94,6 @@ export default function WordPopover({ position }: WordPopoverProps) {
             ))}
           </View>
         </View>
-        
-        {isHeritageMode && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Cultural Note</Text>
-            <Text style={[styles.persianText, getDirectionStyle(wordInfo.cultural_note)]}>
-              {wordInfo.cultural_note}
-            </Text>
-          </View>
-        )}
       </ScrollView>
     </View>
   );
