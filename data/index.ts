@@ -3,22 +3,21 @@
 
 export const wordLookupExample = {
   word: "نمونه",
-  definition_persian: "معنی به فارسی (برای زبان‌آموزان پیشرفته)",
-  translation_english: "example (English translation for second-language mode)",
+  definition: "معنی به فارسی (برای زبان‌آموزان پیشرفته)",
+  translation: "example (English translation for second-language mode)",
   pronunciation: "/næmuːnɛ/ (IPA notation)",
-  part_of_speech: "noun",
-  example_sentence_persian: "این یک نمونه خوب است.",
-  example_translation_english: "This is a good example.",
+  partOfSpeech: "noun",
+  example: "این یک نمونه خوب است.",
+  exampleTranslation: "This is a good example.",
   synonyms: ["مثال", "الگو"],
   antonyms: ["غیرنمونه"],
-  cultural_note: "در فرهنگ ایرانی، این کلمه اغلب در زمینه‌های آموزشی استفاده می‌شود (adjusted for heritage mode)."
 };
 
 export const sentenceParaphraseExample = {
   original_sentence: "جمله اصلی به فارسی.",
   paraphrase_persian: "جمله بازنویسی شده به فارسی ساده‌تر.",
   paraphrase_english: "English paraphrase for second-language learners.",
-  explanation: "این بازنویسی برای ساده‌سازی ساختار جمله انجام شده است، با تمرکز بر واژگان کلیدی."
+  explanation: "این بازنویسی برای ساده‌سازی ساختار جمله انجام شده است، با تمرکز بر واژگان کلیدی.",
 };
 
 export const timelineExample = [
